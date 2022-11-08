@@ -7,10 +7,11 @@ import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 
 const App = () => {
+  //const Google_OAuth_ClientId = process.env.Google_OAuth_ClientId;
   return  (
     <BrowserRouter>
       <Container maxWidth='lg'>
-      <GoogleOAuthProvider clientId ='473004543329-qkk9u4p3mtrpjght3dc7qq1f71jr542b.apps.googleusercontent.com'>
+      <GoogleOAuthProvider clientId = '473004543329-qkk9u4p3mtrpjght3dc7qq1f71jr542b.apps.googleusercontent.com' >
         <Navbar />
         <Switch>
           <Route path='/' exact component={Home} />
