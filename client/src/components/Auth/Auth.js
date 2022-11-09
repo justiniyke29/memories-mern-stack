@@ -7,23 +7,32 @@ import { useHistory } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Input from './Input';
-import { AUTH } from '../../constants/actionTypes';
+import { signin, signup } from '../../actions/auth';
+
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
 const Auth = () => {
     const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
     const [isSignedUp, setIsSignedUp] = useState(false);
+    const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
     const history = useHistory();
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
-    const handleSubmit = () =>{
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        
+        if (isSignedUp) {
+            dispatch(signup(formData, history));
+        } else {
+            dispatch(signin(formData, history));
+        }
+    };
 
-    }
-
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     const switchMode = () =>{
@@ -33,9 +42,10 @@ const Auth = () => {
 
     const googleSuccess = async (res) => {
         const decoded = jwt_decode(res?.credential); 
+        const token = res?.credential
 
         try {
-            dispatch({ type: 'AUTH', data: {decoded} });
+            dispatch({ type: 'AUTH', data: { decoded, token } });
             history.push('/');
             
         } catch (error) {
@@ -55,7 +65,7 @@ const Auth = () => {
             <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
             </Avatar>
-            <Typography variant='h5'>{isSignedUp ? 'Sign Up' : 'Sign In'}</Typography>
+            <Typography variant='h5'> {isSignedUp ? 'Sign Up' : 'Sign In'}</Typography>
             <form className={classes.form} onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                     {
