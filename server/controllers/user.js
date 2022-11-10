@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import User from '../models/user.js';
 
-export const signin = async (req, res) => {
+export const signIn = async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -17,13 +17,13 @@ export const signin = async (req, res) => {
 
         const token = jwt.sign({ email: existingUser.email, id: existingUser._id}, 'test', { expiresIn: '1h'});
 
-        res.status(200).json({ result: existingUser, token });
+        res.status(200).json({ decoded: existingUser, token });
     } catch (error) {
         res.status(500).json({message: "Something went wrong." });
     }
 }
 
-export const signup = async (req, res) => {
+export const signUp = async (req, res) => {
     const { firstName, lastName, email, password, confirmPassword } = req.body;
 
     try {

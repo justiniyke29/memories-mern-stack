@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Input from './Input';
-import { signin, signup } from '../../actions/auth';
+import { signIn, signUp } from '../../actions/auth';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
@@ -25,9 +25,9 @@ const Auth = () => {
         e.preventDefault();
         
         if (isSignedUp) {
-            dispatch(signup(formData, history));
+            dispatch(signUp(formData, history));
         } else {
-            dispatch(signin(formData, history));
+            dispatch(signIn(formData, history));
         }
     };
 
