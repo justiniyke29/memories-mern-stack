@@ -27,7 +27,7 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} raised elevation={6} >
       <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
       <div className={classes.overlay}>
         <Typography variant='h6'>{post.name}</Typography>
@@ -44,7 +44,7 @@ const Post = ({ post, setCurrentId }) => {
       </div>
         <Typography className={classes.title} variant='h5' gutterBottom >{post.title}</Typography>
       <CardContent>
-        <Typography variant='body2' color='textSecondary' component='p' >{post.message}</Typography>
+        <Typography variant='body2' color='textSecondary' >{post.message}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size='small' color='primary' disabled={!user?.decoded} onClick={() => dispatch(likePost(post._id))} >
