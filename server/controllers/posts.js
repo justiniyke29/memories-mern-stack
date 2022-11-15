@@ -96,3 +96,16 @@ export const likePost = async (req, res) => {
 
     res.json(updatePost);
 }
+
+export const commentPost = async (req, res) => {
+    const { id: _id } = req.params;
+    const { value } = req.body;
+
+    const post = await PostMessage.findById(_id);
+
+    post.comments.push(value);
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true});
+
+    res.json(updatedPost);
+}
