@@ -29,7 +29,10 @@ const CommentSection = ({ post }) => {
             <div className={classes.commentsInnerContainer}>
               <Typography gutterBottom variant='h6' >Comments</Typography>
                 {comments.map((c, i) => (
-                  <Typography key={i} gutterBottom variant='subtitle1'>{c}</Typography>
+                  <Typography key={i} gutterBottom variant='subtitle1'>
+                  <strong>{c.split(': ')[0]}</strong>
+                  {c.split(':')[1]}
+                  </Typography>
                 ))}
                 <div ref={commentsRef} />
             </div>
